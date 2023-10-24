@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+}
+
+div.product-item.ant-card div.ant-card-body {
+  padding: 0 12px;
+}
