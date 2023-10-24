@@ -5,3 +5,4 @@ export * from './mainpages/utils/Breadcrumb';
 export * from './mainpages/utils/NotFound';
 export * from './mainpages/products/ProductsList';
 export * from './mainpages/products/CreateProduct';
+export * from './mainpages/category/CategoryList';

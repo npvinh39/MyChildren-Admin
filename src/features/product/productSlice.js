@@ -22,8 +22,7 @@ export const productSlice = createSlice({
         currentPage: 1,
         pageSize: 12,
         totalPages: 0,
-        hasNextPageL: false,
-        hasPreviousPage: false,
+        sort: null,
     },
 
     reducers: {
@@ -48,7 +47,7 @@ export const productSlice = createSlice({
         },
         [fetchProductsWithDescription.fulfilled]: (state, action) => {
             state.loading = false;
-            state.products = action.payload.results;
+            state.products = action.payload.data.products;
             state.totalPages = action.payload.totalPages;
             state.currentPage = action.meta.arg.currentPage;
             state.pageSize = action.meta.arg.pageSize;

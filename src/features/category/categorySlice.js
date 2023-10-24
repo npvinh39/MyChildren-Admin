@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
     fetchCategories,
+    fetchCategoriesForProduct,
     fetchCategory,
     createCategory,
     updateCategory,
@@ -10,9 +11,13 @@ export const categorySlice = createSlice({
     name: "category",
     initialState: {
         categories: [],
+        categoriesForProduct: [],
         category: {},
         loading: false,
         message: "",
+        currentPage: 1,
+        pageSize: 2,
+        totalPages: 0,
     },
     reducers: {},
     extraReducers: {
@@ -21,9 +26,23 @@ export const categorySlice = createSlice({
         },
         [fetchCategories.fulfilled]: (state, action) => {
             state.loading = false;
-            state.categories = action.payload;
+            state.categories = action.payload.data.categories;
+            state.totalPages = action.payload.totalPages;
+            state.currentPage = action.meta.arg.currentPage;
+            state.pageSize = action.meta.arg.pageSize;
         },
         [fetchCategories.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchCategoriesForProduct.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchCategoriesForProduct.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.categoriesForProduct = action.payload.data.categories;
+        },
+        [fetchCategoriesForProduct.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

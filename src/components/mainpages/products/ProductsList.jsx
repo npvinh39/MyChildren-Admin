@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsWithDescription } from '../../../features/product/path-api';
-import { fetchCategories } from '../../../features/category/path-api';
+import { fetchCategoriesForProduct } from '../../../features/category/path-api';
 import { ProductItem } from './ProductItem';
 import { Empty, Skeleton, Pagination, Button } from 'antd';
 
 export const ProductList = () => {
     const dispatch = useDispatch();
-    const { products, loading, currentPage, pageSize, totalPages } = useSelector(state => state.product);
-    const { categories } = useSelector(state => state.category);
+    const { products, loading, currentPage, pageSize, totalPages, sort } = useSelector(state => state.product);
+    const { categoriesForProduct } = useSelector(state => state.category);
 
     useEffect(() => {
         if (!products.length) {
-            dispatch(fetchProductsWithDescription({ currentPage, pageSize }));
+            dispatch(fetchProductsWithDescription({ currentPage, pageSize, sort }));
         }
-        dispatch(fetchCategories());
+        dispatch(fetchCategoriesForProduct());
     }, [dispatch, currentPage, pageSize]);
 
 
@@ -40,7 +40,7 @@ export const ProductList = () => {
                     <>
                         <div className='grid grid-cols-12 gap-3'>
                             {products.map(product => {
-                                const category = categories.find(category => category._id === product.category_id);
+                                const category = categoriesForProduct.find(category => category._id === product.category_id);
                                 return (
                                     <ProductItem
                                         key={product._id}
@@ -54,7 +54,7 @@ export const ProductList = () => {
                             className='mt-5 flex justify-center'
                             current={currentPage}
                             pageSize={pageSize}
-                            total={totalPages}
+                            total={totalPages * pageSize}
                             onChange={handlePageChange}
                             showSizeChanger
                             onShowSizeChange={onShowSizeChange}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Login, Analysis, NotFound, ProductList, CreateProduct } from "./";
+import { Login, Analysis, NotFound, ProductList, CreateProduct, CategoryList } from "./";
 
 
 function Pages() {
@@ -11,6 +11,7 @@ function Pages() {
             <Route path="/products" element={<ProductList />} />
             <Route path="/products/create" element={<CreateProduct />} />
             <Route path="/product/edit/:id" element={<CreateProduct />} />
+            <Route path="/categories" element={<CategoryList />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

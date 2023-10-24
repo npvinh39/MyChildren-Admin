@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct, createProduct, updateProduct } from '../../../features/product/path-api';
-import { fetchCategories } from '../../../features/category/path-api';
+import { fetchCategoriesForProduct } from '../../../features/category/path-api';
 import { Input, Button, Form, Select, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,13 +19,13 @@ export const CreateProduct = () => {
 
     const { id } = useParams();
     const { products, product, loading } = useSelector(state => state.product);
-    const { categories } = useSelector(state => state.category);
+    const { categoriesForProduct } = useSelector(state => state.category);
     const [fileList, setFileList] = useState([]);
 
 
 
     useLayoutEffect(() => {
-        dispatch(fetchCategories());
+        dispatch(fetchCategoriesForProduct());
         if (!id) { form.resetFields(); }
         dispatch(fetchProduct(id))
     }, [dispatch]);
@@ -162,9 +162,9 @@ export const CreateProduct = () => {
                 <Input />
             </Form.Item>
             <Form.Item label="Danh mục" name="category_id" rules={[{ required: true, message: 'Vui lòng không bỏ trống trường này' }]}>
-                {categories.length > 0 && (
+                {categoriesForProduct.length > 0 && (
                     <Select>
-                        {categories.map(category => (
+                        {categoriesForProduct.map(category => (
                             <Option key={category._id} value={category._id}>
                                 {category.name}
                             </Option>

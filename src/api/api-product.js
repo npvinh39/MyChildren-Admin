@@ -7,7 +7,7 @@ export const apiProduct = {
     },
 
     getAllWithDescription: (params) => {
-        const url = `/products/with-description?page=${params.currentPage}&limit=${params.pageSize}`;
+        const url = `/products/with-description?page=${params.currentPage}&limit=${params.pageSize}&sort=${params.sort}`;
         return axiosClient.get(url, params);
     },
 

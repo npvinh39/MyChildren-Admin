@@ -2,7 +2,12 @@ import { axiosClient } from "./client-axios";
 
 export const apiCategory = {
     getAll: (params) => {
-        const url = `/categories`;
+        const url = `/categories?page=${params && params.currentPage}&limit=${params && params.pageSize}`;
+        return axiosClient.get(url, params);
+    },
+
+    getAllForProduct: (params) => {
+        const url = `/categories/`;
         return axiosClient.get(url, params);
     },
 

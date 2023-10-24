@@ -16,6 +16,20 @@ export const fetchCategories = createAsyncThunk(
     }
 );
 
+export const fetchCategoriesForProduct = createAsyncThunk(
+    "category/fetchCategoriesForProduct",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiCategory.getAllForProduct(params);
+            return response;
+        } catch (error) {
+            message.error(`Lấy danh sách thất bại: ${error.msg}`);
+            console.log("Failed to fetch categories: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const fetchCategory = createAsyncThunk(
     "category/fetchCategory",
     async (id, thunkAPI) => {
