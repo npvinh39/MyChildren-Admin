@@ -3,6 +3,7 @@ import {
     fetchProducts,
     fetchProductsWithDescription,
     fetchProduct,
+    fetchProductPromotion,
     fetchProductsByCategory,
     fetchDescriptionByProductId,
     createProduct,
@@ -17,6 +18,8 @@ export const productSlice = createSlice({
         products: [],
         description: {},
         product: null,
+        productsPromotion: [],
+        selectProducts: [],
         loading: false,
         message: '',
         currentPage: 1,
@@ -36,7 +39,7 @@ export const productSlice = createSlice({
         },
         [fetchProducts.fulfilled]: (state, action) => {
             state.loading = false;
-            state.products = action.payload;
+            state.selectProducts = action.payload.data.products;
         },
         [fetchProducts.rejected]: (state, action) => {
             state.loading = false;
@@ -61,9 +64,25 @@ export const productSlice = createSlice({
         },
         [fetchProduct.fulfilled]: (state, action) => {
             state.loading = false;
+            console.log(action.payload);
             state.product = action.payload;
+
         },
         [fetchProduct.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchProductPromotion.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchProductPromotion.fulfilled]: (state, action) => {
+            state.loading = false;
+            // add action.payload to productsPromotion
+            // state.productsPromotion = action.payload;
+            const index = state.productsPromotion.findIndex(p => p._id === action.payload._id);
+            if (index === -1) state.productsPromotion.push(action.payload);
+        },
+        [fetchProductPromotion.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

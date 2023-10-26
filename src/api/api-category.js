@@ -7,7 +7,7 @@ export const apiCategory = {
     },
 
     getAllForProduct: (params) => {
-        const url = `/categories/`;
+        const url = `/categories/all`;
         return axiosClient.get(url, params);
     },
 

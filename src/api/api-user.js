@@ -1,68 +1,68 @@
 import { axiosClient } from "./client-axios";
 
-export const apiAdmin = {
+export const apiUser = {
     login: (params) => {
-        const url = `/admin/login`;
+        const url = `/user/login`;
         return axiosClient.post(url, params);
     },
 
     register: (params) => {
-        const url = `/admin/register`;
+        const url = `/user/register`;
         return axiosClient.post(url, params);
     },
 
     refreshToken: (params) => {
-        const url = `/admin/refresh_token`;
+        const url = `/user/refresh_token`;
         return axiosClient.get(url, params);
     },
 
     logout: (params) => {
-        const url = `/admin/logout`;
+        const url = `/user/logout`;
         return axiosClient.get(url, params);
     },
 
     getProfile: (params) => {
-        const url = `/admin/info`;
+        const url = `/user/info`;
         return axiosClient.get(url, params);
     },
 
-    getAllAdmin: (params) => {
-        const url = `/admin/all`;
+    getAllUser: (params) => {
+        const url = `/user/all`;
         return axiosClient.get(url, params);
     },
 
-    getAdminById: (id) => {
-        const url = `/admin/${id}`;
+    getUserById: (id) => {
+        const url = `/user/${id}`;
         return axiosClient.get(url);
     },
 
-    editAdmin: (params) => {
-        const url = `/admin/edit/${params.id}`;
+    editUser: (params) => {
+        const url = `/user/edit/${params.id}`;
         return axiosClient.patch(url, params);
     },
 
-    deleteAdmin: (id) => {
-        const url = `/admin/delete/${id}`;
+    deleteUser: (id) => {
+        const url = `/user/delete/${id}`;
         return axiosClient.delete(url);
     },
 
     updateProfile: (params) => {
-        const url = `/admin/update`;
+        const url = `/user/update`;
         return axiosClient.patch(url, params);
     },
 
     changePassword: (params) => {
-        const url = `/admin/change_password`;
+        const url = `/user/change_password`;
         return axiosClient.patch(url, params);
     },
 
     forgotPassword: (params) => {
-        const url = `/admin/forgot_password`;
+        const url = `/user/forgot_password`;
         return axiosClient.post(url, params);
     },
 
     resetPassword: (params) => {
-        const url = `/admin/reset_password`;
+        const url = `/user/reset_password`;
         return axiosClient.post(url, params);
     },
 };

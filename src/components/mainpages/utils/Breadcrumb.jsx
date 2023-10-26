@@ -52,6 +52,9 @@ export const Breadcrumb = () => {
                         case 'promotions':
                             slug = 'Khuyến mãi';
                             break;
+                        case 'promotion':
+                            slug = 'Chi tiết khuyến mãi';
+                            break;
                         case 'users':
                             slug = 'Người dùng';
                             break;

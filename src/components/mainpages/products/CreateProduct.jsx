@@ -30,6 +30,8 @@ export const CreateProduct = () => {
         dispatch(fetchProduct(id))
     }, [dispatch]);
 
+    console.log('product', product)
+
     React.useEffect(() => {
         if (product && id) {
             form.setFieldsValue({
@@ -90,7 +92,6 @@ export const CreateProduct = () => {
         try {
             if (id) {
                 const images = await handleUpload();
-                console.log("images:", images)
                 const result = fileList.filter(i => i.img_old).map(i => ({
                     public_id: i.name,
                     url: i.url,
@@ -100,8 +101,6 @@ export const CreateProduct = () => {
 
             } else {
                 const images = await handleUpload();
-                console.log("images:", images)
-                console.log("data:", data)
                 dispatch(createProduct({ ...data, images }));
             }
             message.success('Thao tác thành công');

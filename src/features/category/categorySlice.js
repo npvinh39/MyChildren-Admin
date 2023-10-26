@@ -5,6 +5,7 @@ import {
     fetchCategory,
     createCategory,
     updateCategory,
+    deleteCategory,
 } from "./path-api";
 
 export const categorySlice = createSlice({
@@ -16,7 +17,7 @@ export const categorySlice = createSlice({
         loading: false,
         message: "",
         currentPage: 1,
-        pageSize: 2,
+        pageSize: 6,
         totalPages: 0,
     },
     reducers: {},
@@ -40,7 +41,7 @@ export const categorySlice = createSlice({
         },
         [fetchCategoriesForProduct.fulfilled]: (state, action) => {
             state.loading = false;
-            state.categoriesForProduct = action.payload.data.categories;
+            state.categoriesForProduct = action.payload.categories;
         },
         [fetchCategoriesForProduct.rejected]: (state, action) => {
             state.loading = false;
@@ -62,7 +63,10 @@ export const categorySlice = createSlice({
         },
         [createCategory.fulfilled]: (state, action) => {
             state.loading = false;
-            state.categories = action.payload;
+            // push new category to categories
+            console.log(action.payload)
+            state.categories.unshift(action.payload.data);
+
         },
         [createCategory.rejected]: (state, action) => {
             state.loading = false;
@@ -73,12 +77,31 @@ export const categorySlice = createSlice({
         },
         [updateCategory.fulfilled]: (state, action) => {
             state.loading = false;
-            state.categories = action.payload;
+            // update category in categories
+            const index = state.categories.findIndex((category) => category._id === action.payload.data._id);
+            if (index >= 0) {
+                state.categories[index] = action.payload.data;
+            }
         },
         [updateCategory.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },
+        [deleteCategory.pending]: (state) => {
+            state.loading = true;
+        },
+        [deleteCategory.fulfilled]: (state, action) => {
+            state.loading = false;
+            // remove category in categories
+            const index = state.categories.findIndex((category) => category._id === action.meta.arg);
+            if (index >= 0) {
+                state.categories.splice(index, 1);
+            }
+        },
+        [deleteCategory.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        }
     },
 });
 

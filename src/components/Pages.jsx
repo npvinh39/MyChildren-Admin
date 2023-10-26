@@ -1,6 +1,17 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Login, Analysis, NotFound, ProductList, CreateProduct, CategoryList } from "./";
+import {
+    Login,
+    Analysis,
+    NotFound,
+    ProductList,
+    CreateProduct,
+    CategoryList,
+    PromotionList,
+    Promotion,
+    CreatePromotion,
+    OrderList,
+} from "./";
 
 
 function Pages() {
@@ -12,6 +23,11 @@ function Pages() {
             <Route path="/products/create" element={<CreateProduct />} />
             <Route path="/product/edit/:id" element={<CreateProduct />} />
             <Route path="/categories" element={<CategoryList />} />
+            <Route path="/promotions" element={<PromotionList />} />
+            <Route path="/promotion/:id" element={<Promotion />} />
+            <Route path="/promotion/create" element={<CreatePromotion />} />
+            <Route path="/promotion/edit/:id" element={<CreatePromotion />} />
+            <Route path="/orders" element={<OrderList />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

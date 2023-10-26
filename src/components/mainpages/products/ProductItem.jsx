@@ -23,7 +23,6 @@ export const ProductItem = ({
     createdAt,
     updatedAt
 }) => {
-
     const [open, setOpen] = useState(false);
 
     const showInfo = () => {

@@ -1,60 +1,111 @@
-import React, { useEffect } from 'react';
-import { Pagination, Space, Table } from 'antd';
-import { fetchCategories } from '../../../features/category/path-api';
+import React, { useEffect, useState } from 'react';
+import { Button, Space, Table } from 'antd';
+import { fetchCategories, deleteCategory } from '../../../features/category/path-api';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-
-const columns = [
-    {
-        title: 'Tên danh mục',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Hình ảnh',
-        dataIndex: 'image',
-        key: 'image',
-    },
-    {
-        title: 'Mô tả',
-        dataIndex: 'description',
-        key: 'description',
-    },
-
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <Link to='' className='text-red-500'>Sửa</Link>
-                <Link to='' className='text-red-500'>Xóa</Link>
-            </Space>
-        ),
-    },
-];
+import { CreateCategory } from './CreateCategory';
+import dayjs from 'dayjs';
 
 
 export const CategoryList = () => {
     const dispatch = useDispatch();
     const { categories, pageSize, currentPage, totalPages, loading } = useSelector(state => state.category);
     const total = totalPages * pageSize;
-    console.log("test categories: ", total);
+    const [isOpen, setIsOpen] = useState(false);
+    const [values, setValues] = useState([]);
+
     useEffect(() => {
         dispatch(fetchCategories({ currentPage, pageSize }));
     }, [dispatch, pageSize, currentPage]);
 
-    const data = categories.map(category => {
+    const showModal = () => {
+        setIsOpen(true);
+        setValues([]);
+    }
+
+    const data = categories.map((category, index) => {
         return {
+            index: -(- (currentPage - 1) * pageSize - (index + 1)),
+            id: category._id,
             key: category._id,
             name: category.name,
-            image: category.image,
             description: category.description,
+            createdAt: dayjs(category.createdAt).format('HH:mm:ss DD/MM/YYYY'),
         }
     });
+
+    const columns = [
+
+        {
+            title: 'STT',
+            dataIndex: 'index',
+            key: 'index',
+        },
+        {
+            title: 'Tên danh mục',
+            dataIndex: 'name',
+            key: 'name',
+            render: (text) => <a>{text}</a>,
+        },
+
+        {
+            title: 'Mô tả',
+            dataIndex: 'description',
+            key: 'description',
+        },
+
+        {
+            title: 'Ngày tạo',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
+        },
+
+        {
+            title: "Hành động",
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Button
+                        danger
+                        type="text"
+                        onClick={() => {
+                            setValues(record);
+                            setIsOpen(true);
+                        }}
+                    >
+                        Sửa
+                    </Button>
+                    <Button
+                        danger
+                        type="text"
+                        onClick={() => {
+                            dispatch(deleteCategory(record.id));
+                        }}
+                    >
+                        Xóa
+                    </Button>
+                </Space>
+            ),
+        },
+    ];
+
     return (
         <>
+            <div className='mb-4'>
+                <Button
+                    type="primary"
+                    onClick={showModal}
+                >
+                    Thêm mới
+                </Button>
+                <CreateCategory
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    loading={loading}
+                    values={values}
+                    setValues={setValues}
+                />
+            </div>
             <Table
                 columns={columns}
                 dataSource={data}
@@ -71,4 +122,5 @@ export const CategoryList = () => {
         </>
     )
 };
+
 export default CategoryList;

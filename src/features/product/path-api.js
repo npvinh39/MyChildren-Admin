@@ -35,6 +35,19 @@ export const fetchProduct = createAsyncThunk(
     }
 );
 
+export const fetchProductPromotion = createAsyncThunk(
+    "product/fetchProductPromotion",
+    async (id, thunkAPI) => {
+        try {
+            const response = await apiProduct.get(id);
+            return response;
+        } catch (error) {
+            console.log("Failed to fetch products promotion: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const fetchProductsByCategory = createAsyncThunk(
     "product/fetchProductsByCategory",
     async (id, thunkAPI) => {
