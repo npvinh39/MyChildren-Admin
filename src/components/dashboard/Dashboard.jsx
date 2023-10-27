@@ -38,8 +38,8 @@ const items = [
     getItem('Đơn hàng', '5', <Link to='/orders'><InboxOutlined /></Link>),
     getItem('Người dùng', '6', <Link to='/users'><UserOutlined /></Link>),
     getItem('Quản trị viên', '7', <Link to='/admin'><IdcardOutlined /></Link>),
-    getItem('Quản lý kho', '8', <Link to='/warehouse'><HomeOutlined /></Link>),
-    getItem('Doanh thu', '9', <Link to='/revenue'><DollarOutlined /></Link>),
+    getItem('Quản lý kho', '8', <Link to='/warehouses'><HomeOutlined /></Link>),
+    getItem('Doanh thu', '9', <Link to='/revenues'><DollarOutlined /></Link>),
     getItem('Đánh giá', '10', <Link to='/rated'><CommentOutlined /></Link>),
     getItem('Danh sách liên hệ', '11', <Link to='/contact'><ContactsOutlined /></Link>),
 ];

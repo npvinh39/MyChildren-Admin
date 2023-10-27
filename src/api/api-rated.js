@@ -11,6 +11,11 @@ export const apiRated = {
         return axiosClient.get(url);
     },
 
+    getByProductId: (id) => {
+        const url = `/rated/product/${id}`;
+        return axiosClient.get(url);
+    },
+
     create: (params) => {
         const url = `/rated/add`;
         return axiosClient.post(url, params);

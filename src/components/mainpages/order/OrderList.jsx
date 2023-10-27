@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Space, Table } from "antd";
+import { Button, Space, Table, Badge } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrders } from "../../../features/order/path-api";
 import { Link } from "react-router-dom";
@@ -47,6 +47,41 @@ export const OrderList = () => {
             title: "Trạng thái đơn",
             dataIndex: "status",
             key: "status",
+            render: (status) => {
+                let color = "";
+                let text = "";
+                switch (status) {
+                    case "Chờ xác nhận":
+                        color = "orange";
+                        text = "Chờ xác nhận";
+                        break;
+                    case "Đang xử lý":
+                        color = "orange";
+                        text = "Đang xử lý";
+                        break;
+                    case "Đã xác nhận":
+                        color = "green";
+                        text = "Đã xác nhận";
+                        break;
+                    case "Đang giao hàng":
+                        color = "cyan";
+                        text = "Đang giao hàng";
+                        break;
+                    case "Đã giao hàng":
+                        color = "blue";
+                        text = "Đã giao hàng";
+                        break;
+                    case "Đã hủy":
+                        color = "red";
+                        text = "Đã hủy";
+                        break;
+                    default:
+                        break;
+                }
+                return (
+                    <Badge color={color} text={text} />
+                );
+            },
         },
 
         {
@@ -67,7 +102,7 @@ export const OrderList = () => {
             render: (text, record) => (
                 <Space size="middle">
                     <Link to={`/order/${record.id}`}>Chi tiết</Link>
-                    <Link to={`/order/${record.id}/edit`}>Sửa</Link>
+                    <Link to={`/order/edit/${record.id}`}>Sửa</Link>
                     <Button
                         type="link"
                         onClick={() => dispatch(deleteOrder(record.id))}

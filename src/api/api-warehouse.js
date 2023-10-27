@@ -1,8 +1,8 @@
 import { axiosClient } from "./client-axios";
 
-export const apiWarehouse = {
+export const apiWarehouses = {
     getAll: (params) => {
-        const url = `/warehouses`;
+        const url = `/warehouses?page=${params && params.currentPage}&limit=${params && params.pageSize}`;
         return axiosClient.get(url, params);
     },
 

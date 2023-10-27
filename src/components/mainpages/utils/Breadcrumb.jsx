@@ -61,8 +61,17 @@ export const Breadcrumb = () => {
                         case 'admin':
                             slug = 'Quản trị viên';
                             break;
-                        case 'warehouse':
+                        case 'warehouses':
                             slug = 'Quản lý kho';
+                            break;
+                        case 'warehouse':
+                            slug = 'Chi tiết kho';
+                            break;
+                        case 'in':
+                            slug = 'Nhập kho';
+                            break;
+                        case 'out':
+                            slug = 'Xuất kho';
                             break;
                         case 'revenue':
                             slug = 'Doanh thu';

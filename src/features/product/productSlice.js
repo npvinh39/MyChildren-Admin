@@ -4,6 +4,7 @@ import {
     fetchProductsWithDescription,
     fetchProduct,
     fetchProductPromotion,
+    fetchProductOrder,
     fetchProductsByCategory,
     fetchDescriptionByProductId,
     createProduct,
@@ -19,6 +20,7 @@ export const productSlice = createSlice({
         description: {},
         product: null,
         productsPromotion: [],
+        productsOrder: [],
         selectProducts: [],
         loading: false,
         message: '',
@@ -83,6 +85,21 @@ export const productSlice = createSlice({
             if (index === -1) state.productsPromotion.push(action.payload);
         },
         [fetchProductPromotion.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchProductOrder.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchProductOrder.fulfilled]: (state, action) => {
+            state.loading = false;
+            // add action.payload to productsOrder
+            const index = state.productsOrder.findIndex(p => p._id === action.payload._id);
+            if (index === -1) {
+                state.productsOrder.push(action.payload)
+            };
+        },
+        [fetchProductOrder.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

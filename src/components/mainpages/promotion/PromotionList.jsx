@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Descriptions, Modal, Space, Table } from 'antd';
+import { Button, Space, Table } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPromotions } from '../../../features/promotion/path-api';
 import { Link } from 'react-router-dom';

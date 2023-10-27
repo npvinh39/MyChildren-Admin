@@ -27,7 +27,7 @@ export const apiUser = {
     },
 
     getAllUser: (params) => {
-        const url = `/user/all`;
+        const url = `/user/all_info?page=${params && params.currentPage}&limit=${params && params.pageSize}`;
         return axiosClient.get(url, params);
     },
 
