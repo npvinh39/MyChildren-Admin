@@ -37,7 +37,7 @@ export const warehouseSlice = createSlice({
         },
         [inWarehouse.fulfilled]: (state, action) => {
             state.loading = false;
-            state.warehouses.unshift(action.payload.data);
+            state.warehouses.unshift(action.payload.warehouseEntry);
         },
         [inWarehouse.rejected]: (state, action) => {
             state.loading = false;
@@ -48,10 +48,11 @@ export const warehouseSlice = createSlice({
         },
         [outWarehouse.fulfilled]: (state, action) => {
             state.loading = false;
-            state.warehouses.unshift(action.payload.data);
+            state.warehouses.unshift(action.payload.warehouseEntry);
         },
         [outWarehouse.rejected]: (state, action) => {
             state.loading = false;
+            console.log(action.payload)
             state.message = action.payload;
         },
     },

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Button, Form, Input, InputNumber, Popconfirm, Select, Table } from 'antd';
+import { Button, Form, InputNumber, Popconfirm, Select, Table } from 'antd';
 import { fetchProducts, fetchProduct } from '../../../features/product/path-api';
+import { inWarehouse, outWarehouse } from '../../../features/warehouse/path-api';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditableContext = React.createContext(null);
 const EditableRow = ({ index, ...props }) => {
@@ -53,7 +54,7 @@ const EditableCell = ({
     const save = async () => {
         try {
             const values = await form.validateFields();
-            console.log('values', values)
+            // console.log('values', values)
 
             toggleEdit();
             handleSave({
@@ -123,8 +124,6 @@ const EditableCell = ({
             >
                 {
                     dataIndex === 'product_id' ? (
-                        // console.log('record', children)
-
                         children[1] !== 'Chọn sản phẩm' ? selectProducts.map(product => { if (product._id === record.product_id) return product.name }) : children
                     ) : (
                         children
@@ -137,7 +136,7 @@ const EditableCell = ({
 };
 export const WarehouseInOut = () => {
     const [dataSource, setDataSource] = useState([]);
-    console.log(dataSource)
+    // console.log(dataSource)
     const [count, setCount] = useState(0);
     const handleDelete = (key) => {
         const newData = dataSource.filter((item) => item.key !== key);
@@ -210,6 +209,21 @@ export const WarehouseInOut = () => {
     const location = useLocation();
     const currentPath = location.pathname;
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const saveData = () => {
+        if (currentPath === '/warehouses/in') {
+            // console.log('in')
+            dispatch(inWarehouse({ products: dataSource }));
+        } else {
+            // console.log('out')
+            dispatch(outWarehouse({ products: dataSource }));
+        }
+        console.log(dataSource)
+        navigate('/warehouses');
+    }
+
     return (
         <div>
             <div className='flex justify-between'>
@@ -223,6 +237,7 @@ export const WarehouseInOut = () => {
                 </Button>
                 <Button
                     type="primary"
+                    onClick={saveData}
                 >
                     Lưu
                 </Button>

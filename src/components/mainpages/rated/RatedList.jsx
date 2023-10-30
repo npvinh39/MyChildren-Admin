@@ -40,13 +40,7 @@ export const RatedList = () => {
         });
         setData(result);
     }, [rateds]);
-    // update rated
-    const handleSave = async (rated) => {
-        dispatch(updateRated(rated));
-    };
 
-    // hidden status and view select status
-    const [hidden, setHidden] = React.useState(true);
     const [selectStatus, setSelectStatus] = React.useState(0);
 
     const columns = [

@@ -8,6 +8,7 @@ import userSlice from '../features/user/userSlice'
 import warehouseSlice from '../features/warehouse/warehouseSlice'
 import revenueSlice from '../features/revenue/revenueSlice'
 import ratedSlice from '../features/rated/ratedSlice'
+import contactSlice from '../features/contact/contactSlice'
 
 export const store = configureStore({
     reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
         warehouse: warehouseSlice,
         revenue: revenueSlice,
         rated: ratedSlice,
+        contact: contactSlice,
     },
 })

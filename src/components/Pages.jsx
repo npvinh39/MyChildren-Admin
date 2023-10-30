@@ -17,6 +17,7 @@ import {
     WarehouseInOut,
     RevenueList,
     RatedList,
+    ContactList,
 } from "./";
 
 
@@ -41,6 +42,7 @@ function Pages() {
             <Route path="/warehouses/out" element={<WarehouseInOut />} />
             <Route path="/revenues" element={<RevenueList />} />
             <Route path="/rated" element={<RatedList />} />
+            <Route path="/contacts" element={<ContactList />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

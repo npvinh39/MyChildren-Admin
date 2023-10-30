@@ -13,7 +13,7 @@ import {
     InboxOutlined,
     PercentageOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, theme, Button, Modal, message } from 'antd';
+import { Layout, Menu, theme, Button, Modal, message, Avatar, Dropdown } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { onLogout } from '../../features/login/path-api';
 import { Link, useNavigate } from 'react-router-dom';
@@ -41,7 +41,7 @@ const items = [
     getItem('Quản lý kho', '8', <Link to='/warehouses'><HomeOutlined /></Link>),
     getItem('Doanh thu', '9', <Link to='/revenues'><DollarOutlined /></Link>),
     getItem('Đánh giá', '10', <Link to='/rated'><CommentOutlined /></Link>),
-    getItem('Danh sách liên hệ', '11', <Link to='/contact'><ContactsOutlined /></Link>),
+    getItem('Danh sách liên hệ', '11', <Link to='/contacts'><ContactsOutlined /></Link>),
 ];
 
 const access_Token = Cookies.get('accessToken')
@@ -112,7 +112,37 @@ export const Dashboard = () => {
                     }}
                 >
                     <div className='flex justify-end items-center h-full px-5'>
-                        <Button
+                        <Dropdown
+                            menu={{
+                                items: [
+                                    {
+                                        key: '1',
+                                        label: 'Thông tin tài khoản',
+                                        icon: <UserOutlined />,
+                                        onClick: () => {
+                                            message.info('Thông tin tài khoản');
+                                        },
+                                    },
+                                    {
+                                        key: '2',
+                                        label: 'Đăng xuất',
+                                        icon: <LogoutOutlined />,
+                                        onClick: () => {
+                                            showModal();
+                                        },
+                                    },
+                                ],
+                            }}
+                            placement="bottomRight"
+                        >
+                            <Avatar
+                                style={{
+                                    backgroundColor: '#87d068',
+                                }}
+                                icon={<UserOutlined />}
+                            />
+                        </Dropdown>
+                        {/* <Button
                             className='text-base cursor-pointer'
                             onClick={showModal}
                         >
@@ -120,7 +150,7 @@ export const Dashboard = () => {
                                 className='pr-2'
                             />
                             Đăng xuất
-                        </Button>
+                        </Button> */}
                         <Modal
                             title="Bạn chắc chứ"
                             open={open}

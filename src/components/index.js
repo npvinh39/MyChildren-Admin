@@ -16,3 +16,4 @@ export * from './mainpages/warehouse/WarehouseList';
 export * from './mainpages/warehouse/WarehouseInOut';
 export * from './mainpages/revenue/RevenueList';
 export * from './mainpages/rated/RatedList';
+export * from './mainpages/contact/ContactList';

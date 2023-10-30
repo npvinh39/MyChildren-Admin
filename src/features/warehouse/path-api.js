@@ -39,7 +39,7 @@ export const outWarehouse = createAsyncThunk(
             message.success("Thêm kho thành công");
             return response;
         } catch (error) {
-            message.error(`Thêm kho thất bại: ${error.msg}`);
+            message.error(`Thêm kho thất bại: ${error.error}`);
             console.log("Failed to create warehouse: ", error);
             return thunkAPI.rejectWithValue(error);
         }
