@@ -56,8 +56,9 @@ export const orderSlice = createSlice({
         },
         [updateOrder.fulfilled]: (state, action) => {
             state.loading = false;
+            console.log(action.payload.data)
             state.orders = state.orders.map((order) => {
-                if (order._id === action.payload.data._id) {
+                if (order._id === action.payload.data?.id) {
                     order = action.payload.data;
                 }
                 return order;

@@ -60,10 +60,12 @@ export const RatedList = () => {
             dataIndex: 'status',
             key: 'status',
             render: (_, item) => {
+                console.log('item', item)
                 return (
                     <div className='flex justify-around items-center'>
                         {
                             !item.edit ? (
+
                                 <div>
                                     {item.status === 0 ?
                                         <Badge status='processing' text='Chờ duyệt' />

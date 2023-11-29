@@ -76,6 +76,13 @@ export const UserList = () => {
             render: (text, record) => (
                 <Space size="middle">
                     <Link to={`/admin/user/${record.id}`}>Chi tiết</Link>
+                    <Link to={`/admin/user/edit/${record.id}`}>Sửa</Link>
+                    <Button
+                        type="link"
+                        onClick={() => dispatch(deleteUser(record.id))}
+                    >
+                        Xóa
+                    </Button>
                 </Space>
             ),
         },

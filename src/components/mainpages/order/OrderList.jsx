@@ -1,7 +1,8 @@
 import React from "react";
-import { Button, Space, Table, Badge } from "antd";
+import { Button, Space, Table, Badge, Select } from "antd";
+import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOrders } from "../../../features/order/path-api";
+import { fetchOrders, updateOrder } from "../../../features/order/path-api";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
@@ -10,25 +11,31 @@ export const OrderList = () => {
     const { orders, pageSize, currentPage, totalPages, loading } = useSelector(
         (state) => state.order
     );
+
     const total = totalPages * pageSize;
 
     const VND = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
-
+    const [selectStatus, setSelectStatus] = React.useState(0);
+    const [data, setData] = React.useState([]);
     React.useEffect(() => {
         dispatch(fetchOrders({ currentPage, pageSize }));
     }, [dispatch, pageSize, currentPage]);
 
-    const data = orders.map((order, index) => {
-        return {
-            index: -(-(currentPage - 1) * pageSize - (index + 1)),
-            id: order._id,
-            key: order._id,
-            customer: order.customer,
-            status: order.status,
-            final_total: VND.format(order.final_total),
-            createdAt: dayjs(order.createdAt).format("HH:mm:ss DD/MM/YYYY"),
-        };
-    });
+    React.useEffect(() => {
+        const result = orders.map((order, index) => {
+            return {
+                index: -(-(currentPage - 1) * pageSize - (index + 1)),
+                id: order._id,
+                key: order._id,
+                customer: order.customer,
+                status: order.status,
+                final_total: VND.format(order.final_total),
+                createdAt: dayjs(order.createdAt).format("HH:mm:ss DD/MM/YYYY"),
+                edit: false,
+            };
+        });
+        setData(result);
+    }, [orders]);
 
     const columns = [
         {
@@ -47,7 +54,7 @@ export const OrderList = () => {
             title: "Trạng thái đơn",
             dataIndex: "status",
             key: "status",
-            render: (status) => {
+            render: (status, item) => {
                 let color = "";
                 let text = "";
                 switch (status) {
@@ -79,7 +86,73 @@ export const OrderList = () => {
                         break;
                 }
                 return (
-                    <Badge color={color} text={text} />
+                    <div className='flex justify-around items-center'>
+                        {
+                            !item.edit ? (
+                                < Badge color={color} text={text} />
+                            ) : (
+                                <Select
+                                    defaultValue={status}
+                                    style={{ width: 120 }}
+                                    onChange={(value) => {
+                                        setSelectStatus(value);
+                                    }}
+                                >
+                                    <Select.Option value="Chờ xác nhận">
+                                        Chờ xác nhận
+                                    </Select.Option>
+                                    <Select.Option value="Đang xử lý">
+                                        Đang xử lý
+                                    </Select.Option>
+                                    <Select.Option value="Đã xác nhận">
+                                        Đã xác nhận
+                                    </Select.Option>
+                                    <Select.Option value="Đang giao hàng">
+                                        Đang giao hàng
+                                    </Select.Option>
+                                    <Select.Option value="Đã giao hàng">
+                                        Đã giao hàng
+                                    </Select.Option>
+                                    <Select.Option value="Đã hủy">
+                                        Đã hủy
+                                    </Select.Option>
+                                </Select>
+                            )
+                        }
+                        <Button onClick={async () => {
+                            try {
+                                if (item.edit) {
+                                    const result = await dispatch(updateOrder({ id: item.id, status: selectStatus }));
+
+                                    const payload = await unwrapResult(result);
+                                    const newData = [...data];
+                                    const index = newData.findIndex((i) => i.key === item.key);
+                                    const items = newData[index];
+                                    newData.splice(index, 1, {
+                                        ...items,
+                                        status: selectStatus,
+                                        edit: !item.edit,
+                                    });
+                                    setData(newData);
+                                }
+                                else {
+                                    const newData = [...data];
+                                    const index = newData.findIndex((i) => i.key === item.key);
+                                    const items = newData[index];
+                                    newData.splice(index, 1, {
+                                        ...items,
+                                        edit: !item.edit,
+                                    });
+                                    setData(newData);
+                                }
+                            } catch (error) {
+                                console.log('error', error)
+                            }
+                        }}>
+                            {item.edit ? 'Xác nhận' : 'Cập nhật'}
+                        </Button>
+                    </div >
+
                 );
             },
         },

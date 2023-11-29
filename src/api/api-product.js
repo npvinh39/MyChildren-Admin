@@ -2,7 +2,7 @@ import { axiosClient } from "./client-axios";
 
 export const apiProduct = {
     getAll: (params) => {
-        const url = `/products`;
+        const url = `/products?page=${params.currentPage}&limit=${params.pageSize}&sort=${params.sort}`;
         return axiosClient.get(url, params);
     },
 

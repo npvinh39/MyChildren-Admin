@@ -18,7 +18,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-lime-300 mb-4'
                     >
-                        <Statistic title="Sản phẩm" value={1839} formatter={formatter} />
+                        <Statistic title="Sản phẩm" value={23} formatter={formatter} />
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={6}>
@@ -26,7 +26,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-red-300 mb-4'
                     >
-                        <Statistic title="Đơn hàng" value={190} formatter={formatter} />
+                        <Statistic title="Đơn hàng" value={4} formatter={formatter} />
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={6}>
@@ -34,7 +34,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-sky-300 mb-4'
                     >
-                        <Statistic title="Khách hàng" value={939} formatter={formatter} />
+                        <Statistic title="Khách hàng" value={3} formatter={formatter} />
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={6}>
@@ -42,7 +42,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-yellow-300 mb-4'
                     >
-                        <Statistic title="Đánh giá" value={168} formatter={formatter} />
+                        <Statistic title="Đánh giá" value={5} formatter={formatter} />
                     </Card>
                 </Col>
             </Row>

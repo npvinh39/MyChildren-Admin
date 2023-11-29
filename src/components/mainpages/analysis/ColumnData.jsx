@@ -3,38 +3,39 @@ import { Column } from '@ant-design/plots';
 
 
 export const ColumnData = () => {
+    const VND = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
     const data = [
         {
-            type: '家具家电',
-            sales: 38,
+            type: '19/11',
+            sales: 1020000,
         },
         {
-            type: '粮油副食',
-            sales: 52,
+            type: '20/11',
+            sales: 2090000,
         },
         {
-            type: '生鲜水果',
-            sales: 61,
+            type: '21/11',
+            sales: 340000,
         },
         {
-            type: '美容洗护',
-            sales: 145,
+            type: '22/11',
+            sales: 503000,
         },
         {
-            type: '母婴用品',
-            sales: 48,
+            type: '23/11',
+            sales: 800000,
         },
         {
-            type: '进口食品',
-            sales: 38,
+            type: '24/11',
+            sales: 0,
         },
         {
-            type: '食品饮料',
-            sales: 38,
+            type: '25/11',
+            sales: 0,
         },
         {
-            type: '家庭清洁',
-            sales: 38,
+            type: '26/11',
+            sales: 200000,
         },
     ];
     const config = {
@@ -59,10 +60,10 @@ export const ColumnData = () => {
         },
         meta: {
             type: {
-                alias: '类别',
+                alias: 'doanh thu',
             },
             sales: {
-                alias: '销售额',
+                alias: 'doanh thu',
             },
         },
     };

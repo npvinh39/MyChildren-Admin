@@ -5,27 +5,27 @@ import { Pie } from '@ant-design/plots';
 export const PieData = () => {
     const data = [
         {
-            type: '分类一',
+            type: 'sẩn phẩm 01',
             value: 27,
         },
         {
-            type: '分类二',
+            type: 'sản phẩm 02',
             value: 25,
         },
         {
-            type: '分类三',
+            type: 'sản phẩm 03',
             value: 18,
         },
         {
-            type: '分类四',
+            type: 'sản phẩm 04',
             value: 15,
         },
         {
-            type: '分类五',
+            type: 'sản phẩm 05',
             value: 10,
         },
         {
-            type: '其他',
+            type: 'sản phẩm 06',
             value: 5,
         },
     ];

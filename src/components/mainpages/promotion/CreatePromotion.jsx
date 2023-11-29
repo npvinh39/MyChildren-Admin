@@ -16,6 +16,7 @@ export const CreatePromotion = () => {
     const [selectedDate, setSelectedDate] = React.useState([]);
     const { id } = useParams();
     const { selectProducts, product, loading } = useSelector(state => state.product);
+    console.log("selectProducts", selectProducts)
     const { promotion } = useSelector(state => state.promotion);
 
     useEffect(() => {

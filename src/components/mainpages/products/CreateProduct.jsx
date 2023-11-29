@@ -30,7 +30,6 @@ export const CreateProduct = () => {
         dispatch(fetchProduct(id))
     }, [dispatch]);
 
-    console.log('product', product)
 
     React.useEffect(() => {
         if (product && id) {
@@ -40,6 +39,7 @@ export const CreateProduct = () => {
                 category_id: product.category_id,
                 price: product.price,
                 price_discount: product.price_discount,
+                featured_product: product.featured_product,
                 brand: product.description.brand,
                 origin: product.description.origin,
                 made_in: product.description.made_in,
@@ -176,9 +176,17 @@ export const CreateProduct = () => {
             </Form.Item>
             {
                 id && (
-                    <Form.Item label="Giá giảm" name="price_discount" rules={[{ required: true, message: 'Vui lòng không bỏ trống trường này' }]}>
-                        <Input type="number" />
-                    </Form.Item>
+                    <div>
+                        <Form.Item label="Giá giảm" name="price_discount" rules={[{ required: true, message: 'Vui lòng không bỏ trống trường này' }]}>
+                            <Input type="number" />
+                        </Form.Item>
+                        <Form.Item label="Sản phẩm nổi bật" name="featured_product" rules={[{ required: true, message: 'Vui lòng không bỏ trống trường này' }]}>
+                            <Select>
+                                <Option value={true}>Có</Option>
+                                <Option value={false}>Không</Option>
+                            </Select>
+                        </Form.Item>
+                    </div>
                 )
             }
             <Form.Item label="Thương hiệu" name="brand" rules={[{ required: true, message: 'Vui lòng không bỏ trống trường này' }]}>
