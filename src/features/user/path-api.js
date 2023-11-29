@@ -30,6 +30,20 @@ export const fetchUser = createAsyncThunk(
     }
 );
 
+export const fetchUserLength = createAsyncThunk(
+    "user/fetchUserLength",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiUser.getUserLength(params);
+            return response;
+        } catch (error) {
+            message.error(`Lấy danh sách thất bại: ${error.msg}`);
+            console.log("Failed to fetch users: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const createUser = createAsyncThunk(
     "user/createUser",
     async (params, thunkAPI) => {

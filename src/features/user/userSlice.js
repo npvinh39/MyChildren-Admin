@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUsers, fetchUser, createUser, updateUser } from './path-api';
+import { fetchUsers, fetchUser, fetchUserLength, createUser, updateUser } from './path-api';
 
 export const userSlice = createSlice({
     name: 'user',
@@ -8,6 +8,7 @@ export const userSlice = createSlice({
         user: null,
         loading: false,
         message: '',
+        usersLength: 0,
         currentPage: 1,
         pageSize: 6,
         totalPages: 0,
@@ -36,6 +37,17 @@ export const userSlice = createSlice({
             state.user = action.payload;
         },
         [fetchUser.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchUserLength.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchUserLength.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.usersLength = action.payload.length;
+        },
+        [fetchUserLength.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

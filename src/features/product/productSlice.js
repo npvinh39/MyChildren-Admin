@@ -7,6 +7,7 @@ import {
     fetchProductOrder,
     fetchProductsByCategory,
     fetchDescriptionByProductId,
+    fetchProductsLength,
     createProduct,
     updateProduct,
     deleteProduct,
@@ -22,6 +23,7 @@ export const productSlice = createSlice({
         productsPromotion: [],
         productsOrder: [],
         selectProducts: [],
+        productsLength: 0,
         loading: false,
         message: '',
         currentPage: 1,
@@ -122,6 +124,17 @@ export const productSlice = createSlice({
             state.description = action.payload;
         },
         [fetchDescriptionByProductId.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchProductsLength.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchProductsLength.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.productsLength = action.payload.length;
+        },
+        [fetchProductsLength.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

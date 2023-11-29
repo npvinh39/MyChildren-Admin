@@ -36,6 +36,11 @@ export const apiUser = {
         return axiosClient.get(url);
     },
 
+    getUserLength: (params) => {
+        const url = `/user/length/all`;
+        return axiosClient.get(url, params);
+    },
+
     editUser: (params) => {
         const url = `/user/edit/${params.id}`;
         return axiosClient.patch(url, params);

@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Statistic } from 'antd';
 import CountUp from 'react-countup';
 import { Column } from '@ant-design/plots';
 import ColumnData from './ColumnData';
 import PieData from './PieData';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductsLength } from '../../../features/product/path-api';
+import { fetchUserLength } from '../../../features/user/path-api';
 
 
 export const Analysis = () => {
+    const dispatch = useDispatch();
+    const { productsLength } = useSelector(state => state.product);
+    const { usersLength } = useSelector(state => state.user);
+
+    useEffect(() => {
+        dispatch(fetchProductsLength());
+        dispatch(fetchUserLength());
+    }, [dispatch]);
+
     const formatter = (value) => <CountUp end={value} separator="." />;
 
     return (
@@ -18,7 +30,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-lime-300 mb-4'
                     >
-                        <Statistic title="Sản phẩm" value={23} formatter={formatter} />
+                        <Statistic title="Sản phẩm" value={productsLength} formatter={formatter} />
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={6}>
@@ -34,7 +46,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-sky-300 mb-4'
                     >
-                        <Statistic title="Khách hàng" value={3} formatter={formatter} />
+                        <Statistic title="Khách hàng" value={usersLength} formatter={formatter} />
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={6}>

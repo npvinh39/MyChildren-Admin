@@ -87,6 +87,19 @@ export const fetchDescriptionByProductId = createAsyncThunk(
     }
 );
 
+export const fetchProductsLength = createAsyncThunk(
+    "product/fetchProductsLength",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiProduct.getProductsLength(params);
+            return response;
+        } catch (error) {
+            console.log("Failed to fetch products length: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const createProduct = createAsyncThunk(
     "product/createProduct",
     async (params, thunkAPI) => {

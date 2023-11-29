@@ -26,6 +26,11 @@ export const apiProduct = {
         return axiosClient.get(url);
     },
 
+    getProductsLength: () => {
+        const url = `/products/length/all`;
+        return axiosClient.get(url);
+    },
+
     create: (params) => {
         const url = `/products/add`;
         return axiosClient.post(url, params);
