@@ -19,6 +19,12 @@ export const apiOrder = {
         return response;
     },
 
+    getOrdersLength: async (params) => {
+        const url = `/order/length/all`;
+        const response = await axiosClient.get(url, params);
+        return response;
+    },
+
     createOrder: async (params) => {
         const url = `/order/add/${params.id}`; //user id
         const response = await axiosClient.post(url, params);

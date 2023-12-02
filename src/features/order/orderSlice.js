@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchOrders, fetchOrder, createOrder, updateOrder, deleteOrder } from './path-api';
+import { fetchOrders, fetchOrder, fetchOrdersLength, createOrder, updateOrder, deleteOrder } from './path-api';
 
 export const orderSlice = createSlice({
     name: 'order',
@@ -7,6 +7,7 @@ export const orderSlice = createSlice({
         orders: [],
         order: null,
         loading: false,
+        ordersLength: 0,
         message: '',
         currentPage: 1,
         pageSize: 6,
@@ -37,6 +38,17 @@ export const orderSlice = createSlice({
 
         },
         [fetchOrder.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchOrdersLength.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchOrdersLength.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.ordersLength = action.payload.length;
+        },
+        [fetchOrdersLength.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

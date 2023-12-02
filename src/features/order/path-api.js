@@ -30,6 +30,20 @@ export const fetchOrder = createAsyncThunk(
     }
 );
 
+export const fetchOrdersLength = createAsyncThunk(
+    "order/fetchOrdersLength",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiOrder.getOrdersLength(params);
+            return response;
+        } catch (error) {
+            message.error(`Lấy danh sách thất bại: ${error.msg}`);
+            console.log("Failed to fetch orders: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const createOrder = createAsyncThunk(
     "order/createOrder",
     async (params, thunkAPI) => {

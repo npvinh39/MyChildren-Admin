@@ -3,6 +3,7 @@ import {
     fetchRateds,
     fetchRated,
     fetchRatedByProductId,
+    fetchRatedLength,
     createRated,
     updateRated,
     deleteRated,
@@ -14,6 +15,7 @@ export const ratedSlice = createSlice({
         rateds: [],
         rated: null,
         loading: false,
+        ratedLength: 0,
         message: "",
         currentPage: 1,
         pageSize: 6,
@@ -54,6 +56,17 @@ export const ratedSlice = createSlice({
             state.rateds = action.payload.rateds;
         },
         [fetchRatedByProductId.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchRatedLength.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchRatedLength.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.ratedLength = action.payload.length;
+        },
+        [fetchRatedLength.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

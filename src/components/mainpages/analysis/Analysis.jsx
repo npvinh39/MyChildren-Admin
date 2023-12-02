@@ -8,16 +8,22 @@ import PieData from './PieData';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsLength } from '../../../features/product/path-api';
 import { fetchUserLength } from '../../../features/user/path-api';
+import { fetchOrdersLength } from '../../../features/order/path-api';
+import { fetchRatedLength } from '../../../features/rated/path-api';
 
 
 export const Analysis = () => {
     const dispatch = useDispatch();
     const { productsLength } = useSelector(state => state.product);
     const { usersLength } = useSelector(state => state.user);
+    const { ordersLength } = useSelector(state => state.order);
+    const { ratedLength } = useSelector(state => state.rated);
 
     useEffect(() => {
         dispatch(fetchProductsLength());
         dispatch(fetchUserLength());
+        dispatch(fetchOrdersLength());
+        dispatch(fetchRatedLength());
     }, [dispatch]);
 
     const formatter = (value) => <CountUp end={value} separator="." />;
@@ -38,7 +44,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-red-300 mb-4'
                     >
-                        <Statistic title="Đơn hàng" value={4} formatter={formatter} />
+                        <Statistic title="Đơn hàng" value={ordersLength} formatter={formatter} />
                     </Card>
                 </Col>
                 <Col xs={24} sm={12} md={8} lg={6}>
@@ -54,7 +60,7 @@ export const Analysis = () => {
                         bordered={false}
                         className='bg-yellow-300 mb-4'
                     >
-                        <Statistic title="Đánh giá" value={5} formatter={formatter} />
+                        <Statistic title="Đánh giá" value={ratedLength} formatter={formatter} />
                     </Card>
                 </Col>
             </Row>

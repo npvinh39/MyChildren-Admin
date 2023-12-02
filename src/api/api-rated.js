@@ -16,6 +16,11 @@ export const apiRated = {
         return axiosClient.get(url);
     },
 
+    getRatedLength: (parans) => {
+        const url = `/rated/length/all`;
+        return axiosClient.get(url, parans);
+    },
+
     create: (params) => {
         const url = `/rated/add`;
         return axiosClient.post(url, params);
