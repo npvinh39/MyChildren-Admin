@@ -31,8 +31,8 @@ export const apiUser = {
         return axiosClient.get(url, params);
     },
 
-    getUserById: (id) => {
-        const url = `/user/${id}`;
+    getUserById: (params) => {
+        const url = `/user/${params.id}`;
         return axiosClient.get(url);
     },
 

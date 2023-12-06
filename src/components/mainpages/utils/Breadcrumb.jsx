@@ -58,8 +58,14 @@ export const Breadcrumb = () => {
                         case 'users':
                             slug = 'Người dùng';
                             break;
-                        case 'admin':
+                        case 'user':
+                            slug = 'Chi tiết người dùng';
+                            break;
+                        case 'admins':
                             slug = 'Quản trị viên';
+                            break;
+                        case 'admin':
+                            slug = 'Chi tiết quản trị viên';
                             break;
                         case 'warehouses':
                             slug = 'Quản lý kho';

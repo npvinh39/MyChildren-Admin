@@ -27,12 +27,12 @@ export const apiAdmin = {
     },
 
     getAllAdmin: (params) => {
-        const url = `/admin/all`;
+        const url = `/admin/all?page=${params && params.currentPage}&limit=${params && params.pageSize}&status[regex]=${params && params.status}`;
         return axiosClient.get(url, params);
     },
 
-    getAdminById: (id) => {
-        const url = `/admin/${id}`;
+    getAdminById: (params) => {
+        const url = `/admin/${params.id}`;
         return axiosClient.get(url);
     },
 

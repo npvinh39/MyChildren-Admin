@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUsers, fetchUser, fetchUserLength, createUser, updateUser } from './path-api';
+import { fetchUsers, fetchUser, fetchUserLength, createUser, updateUser, deleteUser } from './path-api';
 
 export const userSlice = createSlice({
     name: 'user',
@@ -67,12 +67,26 @@ export const userSlice = createSlice({
         },
         [updateUser.fulfilled]: (state, action) => {
             state.loading = false;
-            const index = state.users.findIndex((x) => x.id === action.payload.data.id);
+            const index = state.users.findIndex((x) => x.id === action.payload.user.id);
             if (index >= 0) {
-                state.users[index] = action.payload.data;
+                state.users[index] = action.payload.user;
             }
         },
         [updateUser.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [deleteUser.pending]: (state) => {
+            state.loading = true;
+        },
+        [deleteUser.fulfilled]: (state, action) => {
+            state.loading = false;
+            const index = state.users.findIndex((x) => x.id === action.payload.id);
+            if (index >= 0) {
+                state.users.splice(index, 1);
+            }
+        },
+        [deleteUser.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

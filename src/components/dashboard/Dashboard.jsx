@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import {
     ShoppingOutlined,
     PieChartOutlined,
@@ -37,7 +37,7 @@ const items = [
     getItem('Khuyến mãi', '4', <Link to='/promotions'><PercentageOutlined /></Link>),
     getItem('Đơn hàng', '5', <Link to='/orders'><InboxOutlined /></Link>),
     getItem('Người dùng', '6', <Link to='/users'><UserOutlined /></Link>),
-    getItem('Quản trị viên', '7', <Link to='/admin'><IdcardOutlined /></Link>),
+    getItem('Quản trị viên', '7', <Link to='/admins'><IdcardOutlined /></Link>),
     getItem('Quản lý kho', '8', <Link to='/warehouses'><HomeOutlined /></Link>),
     getItem('Doanh thu', '9', <Link to='/revenues'><DollarOutlined /></Link>),
     getItem('Đánh giá', '10', <Link to='/rated'><CommentOutlined /></Link>),
@@ -47,10 +47,13 @@ const items = [
 const access_Token = Cookies.get('accessToken')
 
 export const Dashboard = () => {
+    const location = window.location.pathname;
+    const params = location.split('/');
+    const page = params[1];
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
-
+    const [selectedKey, setSelectedKey] = useState(null);
     const [modalText, setModalText] = useState('Bạn có chắc chắn muốn đăng xuất?');
     const {
         token: { colorBgContainer },
@@ -83,6 +86,49 @@ export const Dashboard = () => {
             navigate('/login')
         }
     }, [loginSelector.isAuth])
+
+    // check params to set selectedKey
+    useEffect(() => {
+        switch (page) {
+            case '':
+                setSelectedKey('1');
+                break;
+            case 'products':
+                setSelectedKey('2');
+                break;
+            case 'categories':
+                setSelectedKey('3');
+                break;
+            case 'promotions':
+                setSelectedKey('4');
+                break;
+            case 'orders':
+                setSelectedKey('5');
+                break;
+            case 'users':
+                setSelectedKey('6');
+                break;
+            case 'admins':
+                setSelectedKey('7');
+                break;
+            case 'warehouses':
+                setSelectedKey('8');
+                break;
+            case 'revenues':
+                setSelectedKey('9');
+                break;
+            case 'rated':
+                setSelectedKey('10');
+                break;
+            case 'contacts':
+                setSelectedKey('11');
+                break;
+            default:
+                setSelectedKey(null);
+                break;
+        }
+    }, [page]);
+
     if (!loginSelector.isAuth) return <Login />;
 
     return (
@@ -102,7 +148,7 @@ export const Dashboard = () => {
                     </div>
                 }
 
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+                <Menu theme="dark" defaultSelectedKeys={[selectedKey]} selectedKeys={[selectedKey]} mode="inline" items={items} />
             </Sider>
             <Layout>
                 <Header

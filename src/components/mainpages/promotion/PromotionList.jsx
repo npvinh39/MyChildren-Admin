@@ -64,10 +64,10 @@ export const PromotionList = () => {
             render: (text, record) => (
                 <Space size="middle">
                     <Link to={`/promotion/${record.id}`}>
-                        <Button type="primary">Chi tiết</Button>
+                        <Button>Chi tiết</Button>
                     </Link>
                     <Link to={`/promotion/edit/${record.id}`}>
-                        <Button type="primary">Sửa</Button>
+                        <Button ghost type="primary">Sửa</Button>
                     </Link>
 
                 </Space>

@@ -34,6 +34,7 @@ export const orderSlice = createSlice({
         },
         [fetchOrder.fulfilled]: (state, action) => {
             state.loading = false;
+            console.log(action)
             state.order = action.payload;
 
         },
@@ -68,9 +69,9 @@ export const orderSlice = createSlice({
         },
         [updateOrder.fulfilled]: (state, action) => {
             state.loading = false;
-            console.log(action.payload.data)
+            console.log(action)
             state.orders = state.orders.map((order) => {
-                if (order._id === action.payload.data?.id) {
+                if (order?._id === action.meta.arg?.id) {
                     order = action.payload.data;
                 }
                 return order;
@@ -86,9 +87,13 @@ export const orderSlice = createSlice({
         [deleteOrder.fulfilled]: (state, action) => {
             state.loading = false;
             state.orders = state.orders.filter(
-                (order) => order._id !== action.payload.data._id
+                (order) => order._id !== action.payload.data.id
             );
-        }
+        },
+        [deleteOrder.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
     }
 });
 

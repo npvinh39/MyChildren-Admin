@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct, createProduct, updateProduct } from '../../../features/product/path-api';
 import { fetchCategoriesForProduct } from '../../../features/category/path-api';
@@ -8,7 +8,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { axiosClient } from '../../../api/client-axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useLayoutEffect } from 'react';
 
 const { Option } = Select;
 

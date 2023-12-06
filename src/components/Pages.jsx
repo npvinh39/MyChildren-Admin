@@ -12,7 +12,12 @@ import {
     CreatePromotion,
     OrderList,
     Order,
+    EditOrder,
     UserList,
+    User,
+    EditUser,
+    AdminList,
+    CreateAdmin,
     WarehouseList,
     WarehouseInOut,
     RevenueList,
@@ -36,7 +41,13 @@ function Pages() {
             <Route path="/promotion/edit/:id" element={<CreatePromotion />} />
             <Route path="/orders" element={<OrderList />} />
             <Route path="/order/:id" element={<Order />} />
+            <Route path="/order/edit/:id" element={<EditOrder />} />
             <Route path="/users" element={<UserList />} />
+            <Route path="/user/:id" element={<User />} />
+            <Route path="/user/edit/:id" element={<EditUser />} />
+            <Route path="/admins" element={<AdminList />} />
+            <Route path="/admin/create" element={<CreateAdmin />} />
+            <Route path="/admin/edit/:id" element={<CreateAdmin />} />
             <Route path="/warehouses" element={<WarehouseList />} />
             <Route path="/warehouses/in" element={<WarehouseInOut />} />
             <Route path="/warehouses/out" element={<WarehouseInOut />} />

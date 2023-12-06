@@ -49,7 +49,7 @@ export const createOrder = createAsyncThunk(
     async (params, thunkAPI) => {
         try {
             const response = await apiOrder.createOrder(params);
-            message.success("Thêm danh mục thành công");
+            message.success("Tạo đơn hàng thành công");
             return response;
         } catch (error) {
             message.error(`Thêm danh mục thất bại: ${error.msg}`);
@@ -64,7 +64,7 @@ export const updateOrder = createAsyncThunk(
     async (params, thunkAPI) => {
         try {
             const response = await apiOrder.updateOrder(params);
-            message.success("Cập nhật danh mục thành công");
+            message.success("Cập nhật đơn hàng thành công");
             return response;
         } catch (error) {
             message.error(`Cập nhật danh mục thất bại: ${error.msg}`);
@@ -79,7 +79,7 @@ export const deleteOrder = createAsyncThunk(
     async (id, thunkAPI) => {
         try {
             const response = await apiOrder.deleteOrder(id);
-            message.success("Xóa danh mục thành công");
+            message.success("Xóa đơn hàng thành công");
             return response;
         } catch (error) {
             message.error(`Xóa danh mục thất bại: ${error.msg}`);

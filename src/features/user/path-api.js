@@ -49,7 +49,7 @@ export const createUser = createAsyncThunk(
     async (params, thunkAPI) => {
         try {
             const response = await apiUser.register(params);
-            message.success("Thêm danh mục thành công");
+            message.success("Tạo người dùng thành công");
             return response;
         } catch (error) {
             message.error(`Thêm danh mục thất bại: ${error.msg}`);
@@ -64,7 +64,7 @@ export const updateUser = createAsyncThunk(
     async (params, thunkAPI) => {
         try {
             const response = await apiUser.editUser(params);
-            message.success("Cập nhật danh mục thành công");
+            message.success("Cập nhật người dùng thành công");
             return response;
         } catch (error) {
             message.error(`Cập nhật danh mục thất bại: ${error.msg}`);

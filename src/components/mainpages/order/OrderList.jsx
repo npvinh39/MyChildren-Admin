@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Space, Table, Badge, Select } from "antd";
+import { Button, Space, Table, Badge, Select, Popconfirm } from "antd";
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchOrders, updateOrder } from "../../../features/order/path-api";
+import { fetchOrders, updateOrder, deleteOrder } from "../../../features/order/path-api";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
@@ -22,15 +22,15 @@ export const OrderList = () => {
     }, [dispatch, pageSize, currentPage]);
 
     React.useEffect(() => {
-        const result = orders.map((order, index) => {
+        const result = orders?.map((order, index) => {
             return {
                 index: -(-(currentPage - 1) * pageSize - (index + 1)),
-                id: order._id,
-                key: order._id,
-                customer: order.customer,
-                status: order.status,
-                final_total: VND.format(order.final_total),
-                createdAt: dayjs(order.createdAt).format("HH:mm:ss DD/MM/YYYY"),
+                id: order?._id,
+                key: order?._id,
+                customer: order?.customer,
+                status: order?.status,
+                final_total: VND.format(order?.final_total),
+                createdAt: dayjs(order?.createdAt).format("HH:mm:ss DD/MM/YYYY"),
                 edit: false,
             };
         });
@@ -174,14 +174,26 @@ export const OrderList = () => {
             key: "action",
             render: (text, record) => (
                 <Space size="middle">
-                    <Link to={`/order/${record.id}`}>Chi tiết</Link>
-                    <Link to={`/order/edit/${record.id}`}>Sửa</Link>
-                    <Button
-                        type="link"
-                        onClick={() => dispatch(deleteOrder(record.id))}
+                    <Link to={`/order/${record.id}`}>
+                        <Button>Chi tiết</Button>
+                    </Link>
+                    <Link to={`/order/edit/${record.id}`}>
+                        <Button type="primary" ghost>Sửa</Button>
+                    </Link>
+                    <Popconfirm
+                        title="Xác nhận xóa"
+                        description={`Bạn có chắc chắn muốn xóa đơn hàng ${record.customer} ?`}
+                        onConfirm={() => dispatch(deleteOrder(record.id))}
+                        okText="Đồng ý"
+                        cancelText="Không"
                     >
-                        Xóa
-                    </Button>
+                        <Button
+                            danger
+                            ghost
+                        >
+                            Xóa
+                        </Button>
+                    </Popconfirm>
                 </Space>
             ),
         },

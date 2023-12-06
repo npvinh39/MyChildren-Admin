@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Space, Table } from 'antd';
+import { Button, Space, Table, Popconfirm } from 'antd';
 import { fetchCategories, deleteCategory } from '../../../features/category/path-api';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -34,6 +34,13 @@ export const CategoryList = () => {
         }
     });
 
+    const confirmDelete = (id) => {
+        dispatch(deleteCategory(id));
+    };
+    const cancelDelete = (e) => {
+        console.log(e);
+    };
+
     const columns = [
 
         {
@@ -66,8 +73,8 @@ export const CategoryList = () => {
             render: (_, record) => (
                 <Space size="middle">
                     <Button
-                        danger
-                        type="text"
+                        type='primary'
+                        ghost
                         onClick={() => {
                             setValues(record);
                             setIsOpen(true);
@@ -75,15 +82,24 @@ export const CategoryList = () => {
                     >
                         Sửa
                     </Button>
-                    <Button
-                        danger
-                        type="text"
-                        onClick={() => {
-                            dispatch(deleteCategory(record.id));
-                        }}
+                    <Popconfirm
+                        title="Xác nhận xóa"
+                        description={`Bạn có chắc chắn muốn xóa danh mục ${record.name} ?`}
+                        onConfirm={() => confirmDelete(record.id)}
+                        onCancel={cancelDelete}
+                        okText="Đồng ý"
+                        cancelText="Không"
                     >
-                        Xóa
-                    </Button>
+                        <Button
+                            danger
+
+                        // onClick={() => {
+                        //     dispatch(deleteCategory(record.id));
+                        // }}
+                        >
+                            Xóa
+                        </Button>
+                    </Popconfirm>
                 </Space>
             ),
         },
