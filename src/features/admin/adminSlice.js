@@ -6,6 +6,7 @@ import {
     createAdmin,
     editAdmin,
     updateProfile,
+    updatePassword,
     deleteAdmin,
 } from "./path-api";
 
@@ -64,7 +65,7 @@ export const adminSlice = createSlice({
         },
         [createAdmin.fulfilled]: (state, action) => {
             state.loading = false;
-            state.admins.unshift(action.payload.data);
+            state.admins.unshift(action.payload.newAdmin);
         },
         [createAdmin.rejected]: (state, action) => {
             state.loading = false;
@@ -95,6 +96,19 @@ export const adminSlice = createSlice({
         [updateProfile.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
+        },
+        [updatePassword.pending]: (state) => {
+            state.loading = true;
+        },
+        [updatePassword.fulfilled]: (state, action) => {
+            state.loading = false;
+            // state.profiles = state.profiles.map((profile) =>
+            //     profile._id === action.payload.data._id ? action.payload.data : profile
+            // );
+        },
+        [updatePassword.rejected]: (state, action) => {
+            state.loading = false;
+            // state.message = action.payload;
         },
         [deleteAdmin.pending]: (state) => {
             state.loading = true;

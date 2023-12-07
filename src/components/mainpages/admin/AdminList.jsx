@@ -91,11 +91,11 @@ export const AdminList = () => {
                             title="Bạn có chắc chắn muốn xóa?"
                             onConfirm={() => {
                                 dispatch(deleteAdmin(record.id))
-                                    .then(unwrapResult)
-                                    .then(() => {
-                                        dispatch(fetchAdmins({ currentPage, pageSize }));
-                                    })
-                                    .catch((error) => console.log(error));
+                                // .then(unwrapResult)
+                                // .then(() => {
+                                //     dispatch(fetchAdmins({ currentPage, pageSize }));
+                                // })
+                                // .catch((error) => console.log(error));
                             }}
                             okText="Có"
                             cancelText="Không"

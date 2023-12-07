@@ -56,6 +56,11 @@ export const apiAdmin = {
         return axiosClient.patch(url, params);
     },
 
+    updatePassword: (params) => {
+        const url = `/admin/update_password/${params.id}`;
+        return axiosClient.patch(url, params);
+    },
+
     forgotPassword: (params) => {
         const url = `/admin/forgot_password`;
         return axiosClient.post(url, params);

@@ -89,6 +89,21 @@ export const updateProfile = createAsyncThunk(
     }
 );
 
+export const updatePassword = createAsyncThunk(
+    "admin/updatePassword",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiAdmin.updatePassword(params);
+            message.success("Cập nhật mật khẩu thành công");
+            return response;
+        } catch (error) {
+            message.error(`Cập nhật mật khẩu thất bại: ${error.msg}`);
+            console.log("Failed to update password: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const deleteAdmin = createAsyncThunk(
     "admin/deleteAdmin",
     async (id, thunkAPI) => {

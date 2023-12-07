@@ -1,21 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAdmin, createAdmin } from '../../../features/admin/path-api';
+import { fetchAdmin, createAdmin, editAdmin } from '../../../features/admin/path-api';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Form, Input, Button, Select } from 'antd';
+import { UpdatePassword } from './UpdatePassword';
 
 export const CreateAdmin = () => {
     const { id } = useParams();
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { admin } = useSelector((state) => state.admin);
+    const { admin, loading } = useSelector((state) => state.admin);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         if (id) {
             dispatch(fetchAdmin({ id }));
         }
     }, [dispatch, id]);
+
+    const showModal = () => {
+        setIsOpen(true);
+    }
 
     useEffect(() => {
         if (admin && id) {
@@ -25,12 +31,17 @@ export const CreateAdmin = () => {
                 email: admin?.email,
                 phone: admin?.phone,
                 status: admin?.status,
+                role: admin?.role
             });
         }
     }, [form, admin]);
 
     const onFinish = (value) => {
-        dispatch(createAdmin(value));
+        if (id && admin) {
+            dispatch(editAdmin({ id, ...value }));
+        } else {
+            dispatch(createAdmin(value));
+        }
         navigate('/admins');
     };
 
@@ -97,13 +108,27 @@ export const CreateAdmin = () => {
                 {
                     id && admin
                         ? (
-                            <div>
-                                <Form.Item>
-                                    <Button type="primary" className='mb-3'>
+                            <div className='flex justify-between gap-3'>
+                                <Form.Item
+                                    className='w-1/3'
+                                    label="Mật khẩu"
+                                >
+                                    <Button
+                                        type="primary"
+                                        className='mb-3'
+                                        onClick={showModal}
+                                    >
                                         Đổi mật khẩu
                                     </Button>
+                                    <UpdatePassword
+                                        isOpen={isOpen}
+                                        setIsOpen={setIsOpen}
+                                        loading={loading}
+                                        id={id}
+                                    />
                                 </Form.Item>
                                 <Form.Item
+                                    className='w-1/3'
                                     name="status"
                                     label="Trạng thái"
                                     rules={[
@@ -120,6 +145,7 @@ export const CreateAdmin = () => {
                                     </Select>
                                 </Form.Item>
                                 <Form.Item
+                                    className='w-1/3'
                                     name="role"
                                     label="Vai trò"
                                     rules={[
@@ -129,9 +155,12 @@ export const CreateAdmin = () => {
                                         },
                                     ]}
                                 >
-                                    <Select>
+                                    <Select
+                                    // defaultValue={admin?.role}
+                                    // disabled={admin?.role === 'staff'}
+                                    >
                                         <Select.Option value="admin">Admin</Select.Option>
-                                        <Select.Option value="super-admin">Super Admin</Select.Option>
+                                        <Select.Option value="staff">Nhân viên</Select.Option>
                                     </Select>
                                 </Form.Item>
                             </div>
@@ -207,7 +236,7 @@ export const CreateAdmin = () => {
                         </Button>
                     </Link>
                     <Button type="primary" htmlType="submit">
-                        Tạo
+                        {id ? 'Cập nhật' : 'Tạo'}
                     </Button>
                 </Form.Item>
 
