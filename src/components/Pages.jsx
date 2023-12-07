@@ -20,6 +20,7 @@ import {
     CreateAdmin,
     WarehouseList,
     WarehouseInOut,
+    Warehouse,
     RevenueList,
     RatedList,
     ContactList,
@@ -49,6 +50,7 @@ function Pages() {
             <Route path="/admin/create" element={<CreateAdmin />} />
             <Route path="/admin/edit/:id" element={<CreateAdmin />} />
             <Route path="/warehouses" element={<WarehouseList />} />
+            <Route path="/warehouse/:id" element={<Warehouse />} />
             <Route path="/warehouses/in" element={<WarehouseInOut />} />
             <Route path="/warehouses/out" element={<WarehouseInOut />} />
             <Route path="/revenues" element={<RevenueList />} />

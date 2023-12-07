@@ -19,6 +19,7 @@ export * from './mainpages/admin/AdminList';
 export * from './mainpages/admin/CreateAdmin';
 export * from './mainpages/warehouse/WarehouseList';
 export * from './mainpages/warehouse/WarehouseInOut';
+export * from './mainpages/warehouse/Warehouse';
 export * from './mainpages/revenue/RevenueList';
 export * from './mainpages/rated/RatedList';
 export * from './mainpages/contact/ContactList';

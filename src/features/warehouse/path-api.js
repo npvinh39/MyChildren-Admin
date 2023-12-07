@@ -16,6 +16,20 @@ export const fetchWarehouses = createAsyncThunk(
     }
 );
 
+export const fetchWarehouse = createAsyncThunk(
+    "warehouse/fetchWarehouse",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiWarehouses.get(params);
+            return response;
+        } catch (error) {
+            message.error(`Lấy kho thất bại: ${error.msg}`);
+            console.log("Failed to fetch warehouse: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);
+
 export const inWarehouse = createAsyncThunk(
     "warehouse/inWarehouse",
     async (params, thunkAPI) => {

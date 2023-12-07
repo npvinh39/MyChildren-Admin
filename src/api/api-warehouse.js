@@ -6,6 +6,11 @@ export const apiWarehouses = {
         return axiosClient.get(url, params);
     },
 
+    get: (params) => {
+        const url = `/warehouses/get/${params.id}`;
+        return axiosClient.get(url, params);
+    },
+
     in: (params) => {
         const url = `/warehouses/in`;
         return axiosClient.post(url, params);

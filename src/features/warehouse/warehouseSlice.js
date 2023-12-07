@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
     fetchWarehouses,
+    fetchWarehouse,
     inWarehouse,
     outWarehouse,
 } from "./path-api";
@@ -29,6 +30,17 @@ export const warehouseSlice = createSlice({
             state.pageSize = action.meta.arg.pageSize;
         },
         [fetchWarehouses.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchWarehouse.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchWarehouse.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.warehouse = action.payload;
+        },
+        [fetchWarehouse.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },
