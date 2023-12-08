@@ -79,17 +79,14 @@ export const RevenueList = () => {
                 <Table
                     columns={columns}
                     dataSource={data}
-                    pagination={false}
                     bordered
-                    paginatio
-                />
-                <Pagination
-                    className="product-list__pagination"
-                    current={currentPage}
-                    total={total}
-                    pageSize={pageSize}
-                    onChange={(page, pageSize) => {
-                        dispatch(fetchRevenues({ currentPage: page, pageSize }));
+                    pagination={{
+                        total: total,
+                        pageSize: pageSize,
+                        current: currentPage,
+                        onChange: (page, pageSize) => {
+                            dispatch(fetchRevenues({ currentPage: page, pageSize }));
+                        },
                     }}
                 />
             </div>

@@ -127,9 +127,9 @@ export const CategoryList = () => {
                 dataSource={data}
                 loading={loading}
                 pagination={{
+                    total: total,
                     pageSize: pageSize,
                     current: currentPage,
-                    total: total,
                     onChange: (page, pageSize) => {
                         dispatch(fetchCategories({ currentPage: page, pageSize }));
                     }

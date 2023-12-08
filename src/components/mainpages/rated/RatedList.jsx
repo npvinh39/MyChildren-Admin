@@ -179,19 +179,18 @@ export const RatedList = () => {
                 <Table
                     columns={columns}
                     dataSource={data}
-                    pagination={false}
                     bordered
+                    pagination={{
+                        total: total,
+                        pageSize: pageSize,
+                        current: currentPage,
+                        onChange: (page, pageSize) => {
+                            dispatch(fetchRateds({ currentPage: page, pageSize }));
+                        },
+
+                    }}
                 />
             </Spin>
-            <Pagination
-                style={{ marginTop: 16, textAlign: "right" }}
-                current={currentPage}
-                total={total}
-                pageSize={pageSize}
-                onChange={(page, pageSize) => {
-                    dispatch(fetchRateds({ currentPage: page, pageSize }));
-                }}
-            />
         </div>
     );
 }

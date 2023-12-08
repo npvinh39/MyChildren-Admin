@@ -100,6 +100,12 @@ export const Breadcrumb = () => {
                         case 'register':
                             slug = 'Đăng ký';
                             break;
+                        case 'revenues':
+                            slug = 'Doanh thu';
+                            break;
+                        case 'contacts':
+                            slug = 'Liên hệ';
+                            break;
                         default:
                             slug = path;
                             break;
