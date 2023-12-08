@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRateds, updateRated } from '../../../features/rated/path-api';
+import { fetchRateds, updateRated, deleteRated } from '../../../features/rated/path-api';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 
-import { Table, Badge, Pagination, Spin, Rate, Button, Select } from 'antd';
+import { Table, Badge, Pagination, Spin, Rate, Button, Select, Popconfirm } from 'antd';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 export const RatedList = () => {
@@ -31,6 +31,7 @@ export const RatedList = () => {
                 index: -(- (currentPage - 1) * pageSize - (index + 1)),
                 id: rated._id,
                 key: rated._id,
+                name: rated.name,
                 date: formatDate(rated.date),
                 status: rated.status,
                 rating: rated.rating,
@@ -54,7 +55,11 @@ export const RatedList = () => {
             dataIndex: 'date',
             key: 'date',
         },
-
+        {
+            title: 'Tên',
+            dataIndex: 'name',
+            key: 'name',
+        },
         {
             title: 'Trạng thái',
             dataIndex: 'status',
@@ -140,6 +145,31 @@ export const RatedList = () => {
             dataIndex: 'comment',
             key: 'comment',
         },
+        {
+            title: 'Thao tác',
+            dataIndex: 'action',
+            key: 'action',
+            render: (_, item) => {
+                return (
+                    <div className='flex justify-around items-center'>
+                        <Popconfirm
+                            title='Bạn có chắc chắn muốn xóa?'
+                            onConfirm={() => {
+                                dispatch(deleteRated(item.id));
+                            }}
+                            okText='Xóa'
+                            cancelText='Hủy'
+                        >
+                            <Button
+                                type='primary'
+                                danger
+                                ghost
+                            >Xóa</Button>
+                        </Popconfirm>
+                    </div>
+                )
+            }
+        }
 
     ];
 
