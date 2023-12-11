@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchRevenues } from "./path-api";
+import { fetchRevenues, fetchRevenuesFillTime } from "./path-api";
 
 export const revenueSlice = createSlice({
     name: "revenue",
@@ -24,6 +24,20 @@ export const revenueSlice = createSlice({
             state.pageSize = action.meta.arg.pageSize;
         },
         [fetchRevenues.rejected]: (state, action) => {
+            state.loading = false;
+            state.message = action.payload;
+        },
+        [fetchRevenuesFillTime.pending]: (state) => {
+            state.loading = true;
+        },
+        [fetchRevenuesFillTime.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.revenues = action.payload.revenue;
+            // state.totalPages = action.payload.totalPages;
+            // state.currentPage = action.meta.arg.currentPage;
+            // state.pageSize = action.meta.arg.pageSize;
+        },
+        [fetchRevenuesFillTime.rejected]: (state, action) => {
             state.loading = false;
             state.message = action.payload;
         },

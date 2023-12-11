@@ -15,3 +15,17 @@ export const fetchRevenues = createAsyncThunk(
         }
     }
 );
+
+export const fetchRevenuesFillTime = createAsyncThunk(
+    "revenue/fetchRevenuesFillTime",
+    async (params, thunkAPI) => {
+        try {
+            const response = await apiRevenue.getAllFillTime(params);
+            return response;
+        } catch (error) {
+            message.error(`Lấy danh sách thất bại: ${error.msg}`);
+            console.log("Failed to fetch revenues: ", error);
+            return thunkAPI.rejectWithValue(error);
+        }
+    }
+);

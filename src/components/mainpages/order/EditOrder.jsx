@@ -102,22 +102,19 @@ export const EditOrder = () => {
                     ]}
                 >
                     <Select>
-                        <Select.Option value="Chờ xác nhận">
+                        <Select.Option value="pending">
                             Chờ xác nhận
                         </Select.Option>
-                        <Select.Option value="Đang xử lý">
+                        <Select.Option value="processing">
                             Đang xử lý
                         </Select.Option>
-                        <Select.Option value="Đã xác nhận">
-                            Đã xác nhận
-                        </Select.Option>
-                        <Select.Option value="Đang giao hàng">
+                        <Select.Option value="shipping">
                             Đang giao hàng
                         </Select.Option>
-                        <Select.Option value="Đã giao hàng">
+                        <Select.Option value="delivered">
                             Đã giao hàng
                         </Select.Option>
-                        <Select.Option value="Đã hủy">
+                        <Select.Option value="cancelled">
                             Đã hủy
                         </Select.Option>
                     </Select>

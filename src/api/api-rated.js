@@ -2,7 +2,7 @@ import { axiosClient } from "./client-axios";
 
 export const apiRated = {
     getAll: (params) => {
-        const url = `/rated`;
+        const url = `/rated?page=${params.currentPage}&limit=${params.pageSize}`;
         return axiosClient.get(url, params);
     },
 

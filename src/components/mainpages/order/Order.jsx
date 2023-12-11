@@ -69,11 +69,11 @@ export const Order = () => {
             key: "7",
             label: "Trạng thái đơn",
             children: (
-                order?.status === "Đã hủy" ? <Badge status="error" text={order?.status} /> :
-                    order?.status === "Đã xác nhận" ? <Badge status="processing" text={order?.status} /> :
-                        order?.status === "Đang xử lý" ? <Badge status="processing" text={order?.status} /> :
-                            order?.status === "Đang giao hàng" ? <Badge status="processing" text={order?.status} /> :
-                                order?.status === "Đã giao hàng" ? <Badge status="success" text={order?.status} /> :
+                order?.status === "pending" ? <Badge status="error" text='Chờ xác nhận' /> :
+                    order?.status === "processing" ? <Badge status="processing" text='Đang xử lý' /> :
+                        order?.status === "shipping" ? <Badge status="processing" text='Đang giao hàng' /> :
+                            order?.status === "delivered" ? <Badge status="success" text="Đã giao hàng" /> :
+                                order?.status === "cancelled" ? <Badge status="error" text="Đã hủy" /> :
                                     <Badge status="default" text={order?.status} />
             ),
         },

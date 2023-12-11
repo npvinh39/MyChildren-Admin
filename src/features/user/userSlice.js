@@ -81,7 +81,8 @@ export const userSlice = createSlice({
         },
         [deleteUser.fulfilled]: (state, action) => {
             state.loading = false;
-            const index = state.users.findIndex((x) => x.id === action.payload.id);
+            console.log(action)
+            const index = state.users.findIndex((x) => x._id === action.payload.id);
             if (index >= 0) {
                 state.users.splice(index, 1);
             }

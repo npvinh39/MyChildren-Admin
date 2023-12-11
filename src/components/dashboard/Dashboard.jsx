@@ -20,6 +20,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Pages from '../Pages';
 import Cookies from 'js-cookie';
 import { Login, Breadcrumb } from '../';
+import { CallBox } from '../';
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -234,6 +235,7 @@ export const Dashboard = () => {
                     My Children ©2023 Created by npvinh39
                 </Footer>
             </Layout>
+            <CallBox />
         </Layout>
     );
 };

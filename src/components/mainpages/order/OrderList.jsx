@@ -58,27 +58,23 @@ export const OrderList = () => {
                 let color = "";
                 let text = "";
                 switch (status) {
-                    case "Chờ xác nhận":
-                        color = "orange";
+                    case "pending":
+                        color = "purple";
                         text = "Chờ xác nhận";
                         break;
-                    case "Đang xử lý":
+                    case "processing":
                         color = "orange";
                         text = "Đang xử lý";
                         break;
-                    case "Đã xác nhận":
-                        color = "green";
-                        text = "Đã xác nhận";
-                        break;
-                    case "Đang giao hàng":
+                    case "shipping":
                         color = "cyan";
                         text = "Đang giao hàng";
                         break;
-                    case "Đã giao hàng":
+                    case "delivered":
                         color = "blue";
                         text = "Đã giao hàng";
                         break;
-                    case "Đã hủy":
+                    case "cancelled":
                         color = "red";
                         text = "Đã hủy";
                         break;
@@ -98,22 +94,19 @@ export const OrderList = () => {
                                         setSelectStatus(value);
                                     }}
                                 >
-                                    <Select.Option value="Chờ xác nhận">
+                                    <Select.Option value="pending">
                                         Chờ xác nhận
                                     </Select.Option>
-                                    <Select.Option value="Đang xử lý">
+                                    <Select.Option value="processing">
                                         Đang xử lý
                                     </Select.Option>
-                                    <Select.Option value="Đã xác nhận">
-                                        Đã xác nhận
-                                    </Select.Option>
-                                    <Select.Option value="Đang giao hàng">
+                                    <Select.Option value="shipping">
                                         Đang giao hàng
                                     </Select.Option>
-                                    <Select.Option value="Đã giao hàng">
+                                    <Select.Option value="delivered">
                                         Đã giao hàng
                                     </Select.Option>
-                                    <Select.Option value="Đã hủy">
+                                    <Select.Option value="cancelled">
                                         Đã hủy
                                     </Select.Option>
                                 </Select>

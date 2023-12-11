@@ -66,7 +66,9 @@ export const Analysis = () => {
             </Row>
             <Row gutter={20} className='mt-4'>
                 <Col xs={24} sm={24} md={12} lg={12}>
-                    <Card title="Thống kê doanh thu" bordered={false}>
+                    <Card
+                        // title="Thống kê doanh thu"
+                        bordered={false}>
                         <ColumnData />
                     </Card>
                 </Col>
